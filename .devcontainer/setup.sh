@@ -5,6 +5,13 @@ echo ""
 echo "🚀 Configurando entorno Java Web — Programación Avanzada..."
 echo ""
 
+# ── MySQL 8 (via apt-get) ─────────────────────────────
+echo "📦 Instalando MySQL..."
+sudo apt-get update -qq
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mysql-server mysql-client
+sudo service mysql start
+echo "✅ MySQL instalado y en ejecución"
+
 # ── Apache Tomcat 9 ───────────────────────────────────
 TOMCAT_VER="9.0.87"
 TOMCAT_DIR="$HOME/tomcat"
@@ -83,5 +90,5 @@ echo "║    deploy          →  compilar y desplegar en Tomcat ║"
 echo "║    mysql-escuela   →  abrir consola MySQL            ║"
 echo "╚═══════════════════════════════════════════════════════╝"
 echo ""
-echo "👉 Para empezar: ejecutá 'tomcat-start' y luego 'deploy'"
+echo "👉 Para empezar: ejecuta 'tomcat-start' y luego 'deploy'"
 echo ""
