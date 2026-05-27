@@ -1,83 +1,46 @@
-# Java Web — Entorno de Desarrollo ☕
+# mini-crud-sql — Tema 3: CRUD con Base de Datos MySQL
 
-Configuración de **GitHub Codespaces** lista para usar con Java Web.  
-Incluye: **Java 17 · Maven · Tomcat 9 · MySQL 8**
+CRUD completo con **MySQL 8**. Clase `Conexion` (Static Factory Method), `db.properties` y `PersonaDAO` con JDBC y `try-with-resources`.
 
----
+## Estructura
 
-## ▶️ Cómo abrir el Codespace
+```
+src/main/
+├── java/
+│   ├── controlador/PersonaControladorServlet.java
+│   ├── modelo/
+│   │   ├── conexion/Conexion.java
+│   │   ├── dao/PersonaDAO.java
+│   │   └── vo/PersonaVO.java
+└── webapp/
+    ├── index.jsp
+    ├── css/styles.css
+    ├── vista/persona-form.jsp
+    ├── vista/persona-lista.jsp
+    ├── vista/persona-editar.jsp
+    └── WEB-INF/web.xml
+src/main/resources/
+    └── db.properties
+```
 
-1. Ingresa al repositorio en GitHub.
-2. Haz clic en el botón verde **`< > Code`**.
-3. Selecciona la pestaña **Codespaces**.
-4. Haz clic en **"Create codespace on main"**.
-5. Espera unos minutos mientras se instala todo automáticamente.
+## Base de datos
 
-> ⏳ La primera vez tarda ~3 min. Las siguientes son mucho más rápidas.
+La tabla `personas` se crea automáticamente al arrancar el Codespace.
 
----
+```sql
+CREATE TABLE personas (codigo INT PRIMARY KEY, nombre VARCHAR(100) NOT NULL);
+```
 
-## 🚀 Ejecutar tu proyecto
+Credenciales (en `db.properties`): usuario `java_dev`, contraseña `java2026`, base `escuela`.
 
-Una vez dentro del Codespace, abre la **Terminal** y ejecuta:
+## Ejecutar en Codespace
 
 ```bash
-# 1. Compilar y empaquetar el proyecto Maven
 deploy
-
-# 2. Iniciar Tomcat
 tomcat-start
 ```
 
-GitHub Codespaces detectará el puerto **8080** y te ofrecerá abrirlo en el navegador.
+Abrí el puerto **8080** en el navegador.
 
 ---
-
-## 🛑 Detener Tomcat
-
-```bash
-tomcat-stop
-```
-
----
-
-## 🔄 Comandos disponibles
-
-| Comando | Qué hace |
-|---|---|
-| `deploy` | Compila con Maven y copia el `.war` a Tomcat |
-| `tomcat-start` | Inicia Tomcat 9 |
-| `tomcat-stop` | Detiene Tomcat 9 |
-| `tomcat-log` | Muestra el log en tiempo real (`catalina.out`) |
-| `mysql-escuela` | Abre la consola de MySQL con la base `escuela` |
-
----
-
-## 🗄️ Base de datos
-
-- **Motor:** MySQL 8
-- **Base de datos:** `escuela`
-- **Usuario:** `java_dev` / Contraseña: `java2026`
-- **Puerto:** 3306
-
-La tabla `personas` se crea automáticamente al levantar el Codespace.  
-Para explorar los datos, ejecuta:
-
-```bash
-mysql-escuela
-```
-
----
-
-## 🛠️ Tecnologías incluidas
-
-| Tecnología | Versión |
-|---|---|
-| Java | 17 |
-| Maven | 3.9 |
-| Tomcat | 9.0 |
-| MySQL | 8.0 |
-
----
-
 *Programación Avanzada · Prof. Elizabeth Izquierdo*
