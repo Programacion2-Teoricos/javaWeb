@@ -23,7 +23,7 @@
   },
 
   "postCreateCommand": "bash .devcontainer/setup.sh",
-  "postStartCommand": "sudo service mysql start 2>/dev/null || true",
+  "postStartCommand": "sudo service mariadb start 2>/dev/null || true",
 
   "forwardPorts": [8080, 3306],
   "portsAttributes": {
