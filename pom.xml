@@ -5,7 +5,7 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.utu</groupId>
-    <artifactId>mini-crud0</artifactId>
+    <artifactId>demo</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
@@ -31,7 +31,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <warName>mini-crud0</warName>
+                    <warName>demo</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
@@ -41,9 +41,10 @@
                 <version>2.2</version>
                 <configuration>
                     <port>8080</port>
-                    <path>/mini-crud0</path>
+                    <path>/demo</path>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
