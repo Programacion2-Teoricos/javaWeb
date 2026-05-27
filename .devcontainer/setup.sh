@@ -11,11 +11,11 @@ sudo apt-get update -qq 2>/dev/null || true   # ignorar repos con clave inválid
 sudo apt-get install -y -qq maven
 echo "✅ Maven $(mvn -q --version 2>&1 | head -1) instalado"
 
-# ── MySQL 8 (via apt-get) ─────────────────────────────
-echo "📦 Instalando MySQL..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mysql-server mysql-client
-sudo service mysql start
-echo "✅ MySQL instalado y en ejecución"
+# ── MariaDB (compatible con MySQL, disponible en Debian Bullseye) ─────
+echo "📦 Instalando MariaDB..."
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mariadb-server mariadb-client
+sudo service mariadb start
+echo "✅ MariaDB instalada y en ejecución"
 
 # ── Apache Tomcat 9 ───────────────────────────────────
 TOMCAT_VER="9.0.87"
@@ -47,8 +47,8 @@ alias mysql-escuela='mysql -u java_dev -pjava2026 escuela'
 ALIASES
 fi
 
-# ── MySQL: esperar que inicie ─────────────────────────
-echo "⏳ Esperando que MySQL esté listo..."
+# ── MariaDB: esperar que inicie ───────────────────────
+echo "⏳ Esperando que MariaDB esté lista..."
 for i in {1..20}; do
   if sudo mysqladmin ping --silent 2>/dev/null; then
     break
@@ -58,10 +58,8 @@ done
 
 # ── Crear base de datos y usuario ─────────────────────
 echo "🗄️  Configurando base de datos..."
-# En Debian/Ubuntu, root usa auth_socket → conectar con sudo mysql
+# MariaDB en Debian usa auth_socket para root → sudo mysql sin contraseña
 sudo mysql << 'SQL'
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'java2026';
-FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS escuela
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_spanish_ci;
@@ -80,7 +78,7 @@ echo ""
 echo "╔═══════════════════════════════════════════════════════╗"
 echo "║   ✅  Entorno listo — Java Web / Programación Avanzada   ║"
 echo "╠═══════════════════════════════════════════════════════╣"
-echo "║  Java 17 + Maven + Tomcat 9 + MySQL 8                ║"
+echo "║  Java 17 + Maven + Tomcat 9 + MariaDB                ║"
 echo "║                                                       ║"
 echo "║  Base de datos:                                       ║"
 echo "║    Host:     localhost:3306                           ║"
