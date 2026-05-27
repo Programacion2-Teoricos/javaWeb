@@ -17,11 +17,12 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mariadb-server mariad
 sudo service mariadb start
 echo "✅ MariaDB instalada y en ejecución"
 
-# ── Aliases útiles ────────────────────────────────────
+# ── Aliases y encoding ────────────────────────────────
 if ! grep -q "alias run=" ~/.bashrc; then
   cat >> ~/.bashrc << 'ALIASES'
 
 # ── Java Web shortcuts ──────────────────────────────
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
 alias run='mvn clean tomcat7:run'
 alias mysql-escuela='mysql -u java_dev -pjava2026 escuela'
 ALIASES
@@ -51,6 +52,12 @@ SQL
 # Cargar esquema inicial
 mysql -u java_dev -pjava2026 escuela < .devcontainer/db/init.sql
 echo "✅ Base de datos 'escuela' lista"
+
+# ── Filtro para Codespace (arregla redirects y encoding) ──
+echo "🔧 Instalando filtro de Codespace..."
+mkdir -p src/main/java/com/utu/filter
+cp .devcontainer/CodespaceRedirectFilter.java src/main/java/com/utu/filter/
+echo "✅ Filtro instalado"
 
 # ── Pre-descargar dependencias Maven ──────────────────
 echo "📦 Descargando dependencias Maven..."
