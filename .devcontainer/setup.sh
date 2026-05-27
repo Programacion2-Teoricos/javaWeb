@@ -7,7 +7,7 @@ echo ""
 
 # ── Maven (via apt-get, más confiable que el feature) ────
 echo "📦 Instalando Maven..."
-sudo apt-get update -qq
+sudo apt-get update -qq 2>/dev/null || true   # ignorar repos con clave inválida (ej. yarn)
 sudo apt-get install -y -qq maven
 echo "✅ Maven $(mvn -q --version 2>&1 | head -1) instalado"
 
