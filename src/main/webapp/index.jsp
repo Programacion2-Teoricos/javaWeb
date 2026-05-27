@@ -1,13 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Mi primer archivo JSP</title>
-</head>
+<head><title>Inicio</title></head>
 <body>
-    <h1>Mi primer archivo JSP</h1>
-    <p>Mi primer archivo JSP actualizado</p>
-    <a href="Servlet1">Ir al servlet</a>
+    <h2>Bienvenido al proyecto básico con Maven</h2>
+    <a href="hola">Ir al servlet</a>
 </body>
 </html>
