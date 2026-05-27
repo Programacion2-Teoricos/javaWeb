@@ -42,10 +42,15 @@ if ! grep -q "tomcat-start" ~/.bashrc; then
 alias tomcat-start='$HOME/tomcat/bin/startup.sh && echo "✅ Tomcat iniciado en puerto 8080"'
 alias tomcat-stop='$HOME/tomcat/bin/shutdown.sh && echo "🛑 Tomcat detenido"'
 alias tomcat-log='tail -f $HOME/tomcat/logs/catalina.out'
-alias deploy='mvn clean package -q && cp target/*.war $HOME/tomcat/webapps/ && echo "✅ Desplegado. Abrí el puerto 8080 en Codespaces."'
+alias deploy='mvn clean package -q && find ~/.m2 -name "mysql-connector-j-*.jar" -exec cp {} $HOME/tomcat/lib/ \; 2>/dev/null; cp target/*.war $HOME/tomcat/webapps/ && echo "✅ Desplegado. Abrí el puerto 8080 en Codespaces."'
 alias mysql-escuela='mysql -u java_dev -pjava2026 escuela'
 ALIASES
 fi
+
+# ── Pre-descargar dependencias y copiar conector JDBC a Tomcat ───
+echo "📦 Descargando dependencias Maven..."
+mvn dependency:resolve -q 2>/dev/null || true
+find ~/.m2 -name "mysql-connector-j-*.jar" -exec cp {} "$TOMCAT_DIR/lib/" \; 2>/dev/null || true
 
 # ── MariaDB: esperar que inicie ───────────────────────
 echo "⏳ Esperando que MariaDB esté lista..."
