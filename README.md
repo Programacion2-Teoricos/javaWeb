@@ -37,11 +37,13 @@ alumnos(codigo FK → personas, telefono) -- ON DELETE CASCADE
 ## Ejecutar en Codespace
 
 ```bash
-deploy
 tomcat-start
+deploy
 ```
 
-Abrí el puerto **8080** en el navegador.
+Abrí el puerto **8080** y navegá a `/mini-crud-alumno-sql`.
+
+> Al reabrir el Codespace solo necesitás `tomcat-start` (MariaDB arranca solo).
 
 ---
 *Programación Avanzada · Prof. Elizabeth Izquierdo*
