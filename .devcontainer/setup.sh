@@ -5,9 +5,14 @@ echo ""
 echo "🚀 Configurando entorno Java Web — Programación Avanzada..."
 echo ""
 
+# ── Maven (via apt-get, más confiable que el feature) ────
+echo "📦 Instalando Maven..."
+sudo apt-get update -qq
+sudo apt-get install -y -qq maven
+echo "✅ Maven $(mvn -q --version 2>&1 | head -1) instalado"
+
 # ── MySQL 8 (via apt-get) ─────────────────────────────
 echo "📦 Instalando MySQL..."
-sudo apt-get update -qq
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq mysql-server mysql-client
 sudo service mysql start
 echo "✅ MySQL instalado y en ejecución"
@@ -45,7 +50,7 @@ fi
 # ── MySQL: esperar que inicie ─────────────────────────
 echo "⏳ Esperando que MySQL esté listo..."
 for i in {1..20}; do
-  if mysqladmin ping -u root -pjava2026 --silent 2>/dev/null; then
+  if sudo mysqladmin ping --silent 2>/dev/null; then
     break
   fi
   sleep 2
@@ -53,20 +58,21 @@ done
 
 # ── Crear base de datos y usuario ─────────────────────
 echo "🗄️  Configurando base de datos..."
-mysql -u root -pjava2026 2>/dev/null << 'SQL'
+# En Debian/Ubuntu, root usa auth_socket → conectar con sudo mysql
+sudo mysql << 'SQL'
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'java2026';
+FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS escuela
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_spanish_ci;
-
 CREATE USER IF NOT EXISTS 'java_dev'@'localhost'
   IDENTIFIED BY 'java2026';
-
 GRANT ALL PRIVILEGES ON escuela.* TO 'java_dev'@'localhost';
 FLUSH PRIVILEGES;
 SQL
 
 # Cargar esquema inicial
-mysql -u root -pjava2026 escuela < .devcontainer/db/init.sql 2>/dev/null
+mysql -u java_dev -pjava2026 escuela < .devcontainer/db/init.sql
 echo "✅ Base de datos 'escuela' lista"
 
 # ── Resumen final ─────────────────────────────────────
