@@ -2,14 +2,6 @@
   "name": "Java Web — Programación Avanzada",
   "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
 
-  "features": {
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "17",
-      "installMaven": "3.9.6",
-      "installGradle": "false"
-    }
-  },
-
   "customizations": {
     "vscode": {
       "extensions": [
