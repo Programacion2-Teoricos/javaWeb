@@ -22,11 +22,14 @@ src/main/
 ## Ejecutar en Codespace
 
 ```bash
-deploy
+# 1. Iniciar Tomcat
 tomcat-start
+
+# 2. Compilar y desplegar
+deploy
 ```
 
-Abrí el puerto **8080** en el navegador.
+GitHub Codespaces detectará el puerto **8080** — navegá a `/mini-crud1`.
 
 ---
 *Programación Avanzada · Prof. Elizabeth Izquierdo*
