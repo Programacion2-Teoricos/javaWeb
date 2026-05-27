@@ -1,17 +1,16 @@
--- ── Esquema inicial: base de datos escuela ────────────────
+-- Esquema para mini-crud-alumno-sql
 
 CREATE TABLE IF NOT EXISTS personas (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    nombre     VARCHAR(100) NOT NULL,
-    apellido   VARCHAR(100) NOT NULL,
-    email      VARCHAR(150) NOT NULL UNIQUE,
-    edad       INT          NOT NULL,
-    creado_en  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS alumnos (
+    codigo    INT PRIMARY KEY,
+    telefono  VARCHAR(20),
+    FOREIGN KEY (codigo) REFERENCES personas(codigo) ON DELETE CASCADE
 );
 
 -- Datos de ejemplo
-INSERT IGNORE INTO personas (nombre, apellido, email, edad) VALUES
-  ('Ana',   'García',    'ana.garcia@mail.com',    22),
-  ('Luis',  'Martínez',  'luis.martinez@mail.com', 25),
-  ('Sofía', 'López',     'sofia.lopez@mail.com',   20),
-  ('Pedro', 'Ramírez',   'pedro.ramirez@mail.com', 23);
+INSERT IGNORE INTO personas (nombre) VALUES ('Ana García'), ('Luis Martínez'), ('Sofía López');
+INSERT IGNORE INTO alumnos (codigo, telefono) VALUES (1, '099111222'), (2, '098333444'), (3, '097555666');
